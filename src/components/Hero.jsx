@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import StatCard from './StatCard';
 import Header from './Header';
+import { stats } from '../data/stats';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,13 +13,6 @@ const Hero = () => {
   
   const welcomeWord = "WELCOME".split('');
   const itzfizzWord = "ITZFIZZ".split('');
-
-  const stats = [
-    { value: '58', label: 'Increase in', subLabel: 'pick up point use' },
-    { value: '23', label: 'Decreased in', subLabel: 'customer phone calls' },
-    { value: '27', label: 'Increase in', subLabel: 'pick up point use' },
-    { value: '40', label: 'Decreased in', subLabel: 'customer phone calls' }
-  ];
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -97,80 +91,88 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-white text-black flex flex-col justify-between pt-[70px] md:pt-[90px] pb-[30px] md:pb-[50px]">
-      <div className="hero-header intro-fade absolute top-0 left-0 w-full z-50"><Header /></div>
-
-      {/* Top Stats */}
-      <div className="w-full max-w-[1440px] mx-auto px-[8%] md:px-[20%] flex flex-row justify-between z-10 stat-top-container shrink-0">
-        <div className="stat-top intro-fade"><StatCard stat={stats[0]} /></div>
-        <div className="stat-top intro-fade"><StatCard stat={stats[1]} /></div>
+    <section ref={containerRef} className="relative w-full h-[clamp(620px,82svh,760px)] md:h-screen overflow-hidden bg-white text-black flex flex-col justify-between pt-[2vh] md:pt-[90px] pb-[2vh] md:pb-[50px]">
+      
+      {/* Header - In normal flow on mobile, absolute on desktop */}
+      <div className="hero-header intro-fade relative md:absolute md:top-0 md:left-0 w-full z-50 shrink-0">
+        <Header />
       </div>
 
-      {/* CORE CENTER BLOCK (Tight Spacing, Full Width Road) */}
-      <div className="w-full flex flex-col items-center justify-center gap-1 md:gap-3 shrink-0">
+      {/* Main Container */}
+      <div className="w-full flex flex-col items-center justify-center gap-[2vh] md:gap-0 md:justify-between flex-1 mt-[2vh] md:mt-0">
         
-        {/* WELCOME */}
-        <div className="w-full max-w-[1440px] mx-auto flex justify-between px-[8%] md:px-[10%] z-10 pointer-events-none">
-          {welcomeWord.map((char, i) => (
-            <div key={i} className="char-wrapper welcome intro-fade relative inline-block text-[min(15vw,9vh)] md:text-[min(9.5vw,13vh)] font-black leading-none font-sans tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
-              <span className="outline-char block">{char}</span>
-              <span className="solid-char absolute top-0 left-0 w-full text-center">{char}</span>
-            </div>
-          ))}
+        {/* Top Stats */}
+        <div className="w-full max-w-[1440px] mx-auto px-[10%] md:px-[20%] flex flex-row justify-between z-10 stat-top-container shrink-0">
+          <div className="stat-top intro-fade"><StatCard stat={stats[0]} /></div>
+          <div className="stat-top intro-fade"><StatCard stat={stats[1]} /></div>
         </div>
 
-        {/* ROAD & CAR */}
-        {/* Road is a direct w-full child, naturally spanning edge-to-edge without hacks */}
-        <div className="relative w-full h-[8vh] min-h-[60px] max-h-[150px] md:h-[15vh] md:min-h-[100px] md:max-h-[150px] bg-[#1a1a1a] shadow-2xl z-20 flex flex-col justify-between">
-          <div className="w-full h-[1px] md:h-[2px] bg-white opacity-40"></div>
+        {/* CORE CENTER BLOCK */}
+        <div className="w-full flex flex-col items-center justify-center gap-[1.5vh] md:gap-3 shrink-0 my-auto">
           
-          {/* Dashed Lane Markings */}
-          <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] md:h-[3px] opacity-70" style={{
-            backgroundImage: 'linear-gradient(90deg, #fff 0%, #fff 40%, transparent 40%, transparent 100%)',
-            backgroundSize: '120px 100%'
-          }}></div>
-          
-          <div className="w-full h-[1px] md:h-[2px] bg-white opacity-40"></div>
-
-          {/* Car Intro Wrapper */}
-          <div className="car-intro-wrapper absolute top-1/2 -translate-y-1/2 left-0 w-full">
-            {/* Car Scroll Wrapper */}
-            <div ref={carRef} className="flex items-center will-change-transform w-[120px] h-[50px] md:w-[260px] md:h-[110px]">
-              {/* Smooth Green Motion Trail (Reference Match) */}
-              <div className="absolute right-[80%] w-[150px] md:w-[350px] h-[10px] md:h-[18px] flex pointer-events-none opacity-90 z-0">
-                <div className="w-full h-full bg-gradient-to-r from-transparent via-[#22c55e80] to-[#4ade80] blur-[4px] md:blur-[8px] rounded-full scale-y-150"></div>
-                <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-gradient-to-r from-transparent via-[#4ade80] to-[#ffffff] shadow-[0_0_15px_#4ade80]"></div>
+          {/* WELCOME */}
+          <div className="w-full max-w-[1440px] mx-auto flex justify-between px-[10%] md:px-[10%] z-10 pointer-events-none">
+            {welcomeWord.map((char, i) => (
+              <div key={i} className="char-wrapper welcome intro-fade relative inline-block text-[min(14vw,8.5vh)] md:text-[min(9.5vw,13vh)] font-black leading-none font-sans tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <span className="outline-char block">{char}</span>
+                <span className="solid-char absolute top-0 left-0 w-full text-center">{char}</span>
               </div>
-              {/* Car Image */}
-              <img 
-                src="/car-image.png?v=2" 
-                alt="Car" 
-                className="w-full h-full object-contain relative z-10 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] md:drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]" 
-              />
+            ))}
+          </div>
+
+          {/* ROAD & CAR */}
+          <div className="relative w-full h-[7vh] min-h-[55px] max-h-[120px] md:h-[15vh] md:min-h-[100px] md:max-h-[150px] bg-[#1a1a1a] shadow-2xl z-20 flex flex-col justify-between">
+            <div className="w-full h-[1px] md:h-[2px] bg-white opacity-40"></div>
+            
+            {/* Dashed Lane Markings */}
+            <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] md:h-[3px] opacity-70" style={{
+              backgroundImage: 'linear-gradient(90deg, #fff 0%, #fff 40%, transparent 40%, transparent 100%)',
+              backgroundSize: '120px 100%'
+            }}></div>
+            
+            <div className="w-full h-[1px] md:h-[2px] bg-white opacity-40"></div>
+
+            {/* Car Intro Wrapper */}
+            <div className="car-intro-wrapper absolute top-1/2 -translate-y-1/2 left-0 w-full">
+              {/* Car Scroll Wrapper */}
+              <div ref={carRef} className="flex items-center will-change-transform w-[110px] h-[45px] md:w-[260px] md:h-[110px]">
+                {/* Smooth Green Motion Trail */}
+                <div className="absolute right-[80%] w-[120px] md:w-[350px] h-[8px] md:h-[18px] flex pointer-events-none opacity-90 z-0">
+                  <div className="w-full h-full bg-gradient-to-r from-transparent via-[#22c55e80] to-[#4ade80] blur-[4px] md:blur-[8px] rounded-full scale-y-150"></div>
+                  <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-gradient-to-r from-transparent via-[#4ade80] to-[#ffffff] shadow-[0_0_15px_#4ade80]"></div>
+                </div>
+                {/* Car Image */}
+                <img 
+                  src={`${import.meta.env.BASE_URL}car-image.png`} 
+                  alt="Car" 
+                  className="w-full h-full object-contain relative z-10 drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)] md:drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]" 
+                />
+              </div>
             </div>
           </div>
+
+          {/* ITZFIZZ */}
+          <div className="w-full max-w-[1440px] mx-auto flex justify-between px-[14%] md:px-[20%] z-10 pointer-events-none">
+            {itzfizzWord.map((char, i) => (
+              <div key={i + 7} className="char-wrapper itzfizz intro-fade relative inline-block text-[min(14vw,8.5vh)] md:text-[min(9.5vw,13vh)] font-black leading-none font-sans tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <span className="outline-char block">{char}</span>
+                <span className="solid-char absolute top-0 left-0 w-full text-center">{char}</span>
+              </div>
+            ))}
+          </div>
+
         </div>
 
-        {/* ITZFIZZ */}
-        <div className="w-full max-w-[1440px] mx-auto flex justify-between px-[12%] md:px-[20%] z-10 pointer-events-none">
-          {itzfizzWord.map((char, i) => (
-            <div key={i + 7} className="char-wrapper itzfizz intro-fade relative inline-block text-[min(15vw,9vh)] md:text-[min(9.5vw,13vh)] font-black leading-none font-sans tracking-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
-              <span className="outline-char block">{char}</span>
-              <span className="solid-char absolute top-0 left-0 w-full text-center">{char}</span>
-            </div>
-          ))}
+        {/* Bottom Stats */}
+        <div className="w-full max-w-[1440px] mx-auto px-[10%] md:px-[25%] flex flex-row justify-between z-10 stat-bottom-container shrink-0">
+          <div className="stat-bottom intro-fade"><StatCard stat={stats[2]} /></div>
+          <div className="stat-bottom intro-fade"><StatCard stat={stats[3]} /></div>
         </div>
 
-      </div>
-
-      {/* Bottom Stats */}
-      <div className="w-full max-w-[1440px] mx-auto px-[8%] md:px-[25%] flex flex-row justify-between z-10 stat-bottom-container shrink-0">
-        <div className="stat-bottom intro-fade"><StatCard stat={stats[2]} /></div>
-        <div className="stat-bottom intro-fade"><StatCard stat={stats[3]} /></div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="scroll-indicator intro-fade absolute bottom-[2vh] md:bottom-[3vh] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+      <div className="scroll-indicator intro-fade relative md:absolute md:bottom-[3vh] left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none shrink-0 mt-[2vh] md:mt-0">
         <div className="w-[1px] h-6 md:h-10 bg-black mb-1 md:mb-2"></div>
         <span className="text-[8px] md:text-[9px] tracking-[0.2em] uppercase font-bold text-black mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Scroll Down</span>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
